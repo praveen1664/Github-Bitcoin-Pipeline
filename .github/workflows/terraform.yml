@@ -1,4 +1,4 @@
-# This workflow installs the latest version of Terraform CLI and configures the Terraform CLI configuration file
+#This workflow installs the latest version of Terraform CLI and configures the Terraform CLI configuration file
 # with an API token for Terraform Cloud (app.terraform.io). On pull request events, this workflow will run
 # `terraform init`, `terraform fmt`, and `terraform plan` (speculative plan via Terraform Cloud). On push events
 # to the "main" branch, `terraform apply` will be executed.
@@ -41,7 +41,8 @@
 #       uses: hashicorp/setup-terraform@v1
 #       with:
 #         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-
+env:
+  repo_url: 613476214421.dkr.ecr.us-east-1.amazonaws.com/demo_app
 name: 'Terraform_Plan_Apply'
 on:
   push:
@@ -108,11 +109,8 @@ jobs:
       if: github.event_name == 'push'
       run: terraform -chdir='modules/ecr' apply -auto-approve -input=false
 
-    - name: ECR Echo
-      run: echo "${{ env.repository_url }}"
-
     - name: Our ECR URL
-      run: echo "${{ env.repo_url }}"
+      run: echo "$repo_url"
       
     
     # - name: Docker build
