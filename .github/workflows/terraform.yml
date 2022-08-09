@@ -106,11 +106,12 @@ jobs:
 
     - name: Terraform ECR Creation
       if: github.event_name == 'push'
-      run: terraform -chdir='modules/ecr' apply -auto-approve -input=false >> $GITHUB_ENV 
+      run: |
+       terraform -chdir='modules/ecr' apply -auto-approve -input=false >> $GITHUB_ENV 
 
     - name: ECR Echo
       run: echo "${{ env.repository_url }}"
-      
+
     - name: Our ECR URL
       run: echo "${{ env.repo_url }}"
       
