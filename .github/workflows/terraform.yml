@@ -101,15 +101,18 @@ jobs:
     # - name: Terraform Plan
     #   run: terraform -chdir='environment/demo' plan -input=false
     - name: Terraform Init
-      run: terraform -chdir='environment/module/ecr' init 
+      run: terraform -chdir='modules/ecr' init 
       
 
     - name: Terraform ECR Creation
       if: github.event_name == 'push'
-      run: terraform -chdir='environment/module/ecr' apply -auto-approve -input=false >> $GITHUB_ENV 
+      run: terraform -chdir='modules/ecr' apply -auto-approve -input=false >> $GITHUB_ENV 
 
     - name: ECR Echo
       run: echo "${{ env.repository_url }}"
+      
+    - name: Our ECR URL
+      run: echo "${{ env.repo_url }}"
       
     
     # - name: Docker build
