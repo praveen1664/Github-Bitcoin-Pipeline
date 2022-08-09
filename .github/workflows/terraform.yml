@@ -41,8 +41,7 @@
 #       uses: hashicorp/setup-terraform@v1
 #       with:
 #         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-env:
-  repo_url: 613476214421.dkr.ecr.us-east-1.amazonaws.com/demo_app
+
 name: 'Terraform_Plan_Apply'
 on:
   push:
@@ -90,8 +89,7 @@ jobs:
         repo_url: ${{secrets.REPO_URL}}
     
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
-    - name: Terraform Init
-      run: terraform -chdir='environment/demo' init 
+
       #run: terraform init
 
     # Checks that all Terraform configuration files adhere to a canonical format
@@ -109,22 +107,20 @@ jobs:
       if: github.event_name == 'push'
       run: terraform -chdir='modules/ecr' apply -auto-approve -input=false
 
-    - name: Our ECR URL
-      run: echo "$repo_url"
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Build, tag, and push image to Amazon ECR
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: demo_app
+        IMAGE_TAG: demo1
+      run: |
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
       
-    
-    # - name: Docker build
-       #if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
-
-
-    # - name: Terraform Destroy
-    #   if: github.event_name == 'pull_request'
-    #   run: terraform -chdir='environment/demo' destroy --auto-approve -input=false 
-
-      # On push to "main", build or change infrastructure according to Terraform configuration files
-      # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
-    # - name: Terraform Apply
-       #if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
-      # if: github.event_name == 'push'
-      # run: terraform -chdir='environment/demo' apply -auto-approve -input=false
-       # run: terraform -chdir='environment/demo' apply -auto-approve -input=false
+    - name: Terraform Init For Main Module
+      run: terraform -chdir='environment/demo' init   
+    - name: Terraform Apply for VPC, SUBnets, Nat gateways, ECS, EFS
+      run: terraform -chdir='environment/demo' apply -auto-approve -input=false       
