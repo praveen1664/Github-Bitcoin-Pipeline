@@ -1,4 +1,4 @@
-Github Actions Integration with terraform to create VPC->SG-> ECR -> ECS- > EFS & mounting of EFS
+Github Actions Integration with terraform to create VPC, SG, ECR, ECS, EFS & mounting of EFS
 ==================================================================================================
 # What it contains
 1. ### It contains a terraform code create ECR, ECS, Task defnitions, VPC, Security groups, EFS, policies to mount EFS.
@@ -76,6 +76,9 @@ What You need to do to test this code?
 10. Check all of the logs.
 11. You can cross check your aws account to verify the build.
 12. Run anoher work flow from repo -> Actions-> terraform_destroy to destroy the infra. (You need toenter Destroy to proceed further)
+
+
+
 
 
 
