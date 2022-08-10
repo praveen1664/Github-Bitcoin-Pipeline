@@ -113,6 +113,7 @@ resource "aws_route_table_association" "private_crt_public_subnet" {
 ## Creating EFS ##
 
 resource "aws_efs_file_system" "bitcoin" {
+  
   tags = {
     Name = "ECS-EFS-FS"
   }
@@ -129,7 +130,7 @@ resource "null_resource" "previous" {
 resource "time_sleep" "wait_200_seconds" {
   depends_on = [null_resource.previous, aws_efs_file_system.bitcoin]
 
-  create_duration = "300s"
+  create_duration = "500s"
 }
 
 # This resource will create (at least) 30 seconds after null_resource.previous
