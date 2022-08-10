@@ -31,7 +31,7 @@ resource "aws_security_group" "ecs" {
     cidr_blocks      = ["0.0.0.0/0"]
   }
 
-     ingress {
+     /* ingress {
      security_groups = [aws_security_group.bitcoin.id]
      from_port = 2049
      to_port = 2049 
@@ -43,7 +43,7 @@ resource "aws_security_group" "ecs" {
      from_port = 2049
      to_port = 2049 
      protocol = "tcp"
-   }  
+   }   */
 
 
   
@@ -60,7 +60,30 @@ resource "aws_security_group" "ecs" {
   }
 }
 
-/* resource "aws_security_group" "ecs_host_sg" {
+
+
+resource "aws_security_group" "bitcoin" {
+   name = "efs-sg"
+   description= "Allos inbound efs traffic from ec2"
+   vpc_id = var.vpc_id
+
+   ingress {
+     security_groups = [aws_security_group.ecs.id]
+     from_port = 2049
+     to_port = 2049 
+     protocol = "tcp"
+   }     
+        
+   egress {
+     security_groups = [aws_security_group.ecs.id]
+     from_port = 0
+     to_port = 0
+     protocol = "-1"
+   }
+ }
+
+
+resource "aws_security_group" "ecs_host_sg" {
 	    vpc_id      = var.vpc_id
 	
 	    ingress {
@@ -83,4 +106,4 @@ resource "aws_security_group" "ecs" {
 	        protocol        = "tcp"
 	        cidr_blocks     = ["0.0.0.0/0"]
 	    }
-} */
+}

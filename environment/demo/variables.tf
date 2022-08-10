@@ -62,3 +62,16 @@ variable "repository_url" {
 
 }
  
+ variable "sgsid_ecs_efs" {
+  type= string
+  description  = "Variable for Repository url"
+  default = ""
+   
+ }
+
+ variable "vpc_network" {
+  type= string
+  description  = "Variable for Repository url"
+  default = ""
+   
+ }

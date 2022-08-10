@@ -40,3 +40,7 @@ variable "efs_id" {
 variable "public_subnet" {
   type = list(string)
 }
+
+variable "sgs_id_efs" {
+  type = string
+}

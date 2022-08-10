@@ -110,26 +110,6 @@ resource "aws_route_table_association" "private_crt_public_subnet" {
 
 #Creating security group for EFS
 
-resource "aws_security_group" "bitcoin" {
-   name = "efs-sg"
-   description= "Allos inbound efs traffic from ec2"
-   vpc_id = aws_vpc.vpc-network.id
-
-   ingress {
-     security_groups = [aws_security_group.ecs.id]
-     from_port = 2049
-     to_port = 2049 
-     protocol = "tcp"
-   }     
-        
-   egress {
-     security_groups = [aws_security_group.ecs.id]
-     from_port = 0
-     to_port = 0
-     protocol = "-1"
-   }
- }
-
 ## Creating EFS ##
 
 resource "aws_efs_file_system" "bitcoin" {
@@ -164,7 +144,7 @@ resource "aws_efs_mount_target" "mount" {
   file_system_id = aws_efs_file_system.bitcoin.id
   count = length(var.public_subnet_cidr_blocks)
   subnet_id      = aws_subnet.public[count.index].id
-  security_groups = [aws_security_group.bitcoin.id]
+  security_groups = [var.sgsid_ecs_efs]
   depends_on = [
     null_resource.next, time_sleep.wait_200_seconds, null_resource.previous, aws_efs_file_system.bitcoin
   ]

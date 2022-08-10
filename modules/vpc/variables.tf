@@ -26,4 +26,7 @@ variable "sgsid_ecs_host" {
   type = string
 }
 
+variable "sgsid_ecs_efs" {
+  type = string
+}
 

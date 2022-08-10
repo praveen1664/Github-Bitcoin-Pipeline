@@ -89,7 +89,7 @@ resource "aws_ecs_service" "demo-service" {
   launch_type     = "FARGATE"
   platform_version = "1.4.0" //not specfying this version explictly will not currently work for mounting EFS to Fargate
   network_configuration {
-    security_groups  = [var.sgs_id_ecs]
+    security_groups  = [var.sgs_id_ecs, var.sgs_id_efs]
     subnets          = var.public_subnet
     assign_public_ip = true
   }  

@@ -14,3 +14,8 @@ output "private_subnet_ids" {
 output "efs_id" {
   value = aws_efs_file_system.bitcoin.id
 }
+
+output "vpc_network" {
+  value=aws_vpc.vpc-network.id
+  
+}
