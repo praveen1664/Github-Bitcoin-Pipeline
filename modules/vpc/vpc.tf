@@ -109,12 +109,27 @@ resource "aws_route_table_association" "private_crt_public_subnet" {
 }
 
 
+
 ## Creating EFS ##
 
 resource "aws_efs_file_system" "bitcoin" {
   tags = {
     Name = "ECS-EFS-FS"
   }
+}
+
+# This resource will destroy (potentially immediately) after null_resource.next
+resource "null_resource" "previous" {}
+
+resource "time_sleep" "wait_200_seconds" {
+  depends_on = [null_resource.previous]
+
+  create_duration = "300s"
+}
+
+# This resource will create (at least) 30 seconds after null_resource.previous
+resource "null_resource" "next" {
+  depends_on = [time_sleep.wait_200_seconds]
 }
 
 resource "aws_efs_mount_target" "mount" {
@@ -125,3 +140,17 @@ resource "aws_efs_mount_target" "mount" {
     Name = "ECS-EFS-MNT"
   } */
 }
+
+# This resource will destroy (potentially immediately) after null_resource.next
+/* resource "null_resource" "previous1" {}
+
+resource "time_sleep" "wait_200_seconds1" {
+  depends_on = [null_resource.previous1]
+
+  create_duration = "200s"
+}
+
+
+resource "null_resource" "next1" {
+  depends_on = [time_sleep.wait_200_seconds1]
+} */
