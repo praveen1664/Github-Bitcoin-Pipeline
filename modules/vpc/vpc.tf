@@ -116,18 +116,18 @@ resource "aws_security_group" "bitcoin" {
    vpc_id = aws_vpc.vpc-network.id
 
    ingress {
-     security_groups = [aws_security_group.sgs_id_ecs.id]
+     security_groups = [aws_security_group.ecs.id]
      from_port = 2049
      to_port = 2049 
      protocol = "tcp"
    }     
         
-   /* egress {
-     security_groups = [aws_security_group.ec2.id]
+   egress {
+     security_groups = [aws_security_group.ecs.id]
      from_port = 0
      to_port = 0
      protocol = "-1"
-   } */
+   }
  }
 
 ## Creating EFS ##

@@ -17,7 +17,7 @@ resource "aws_security_group" "alb_sgs" {
   }
 }
 
-resource "aws_security_group" "sgs_id_ecs" {
+resource "aws_security_group" "ecs" {
   name        = "ecs-container"
   description = "Allow http inbound traffic"
   vpc_id      = var.vpc_id
@@ -31,6 +31,21 @@ resource "aws_security_group" "sgs_id_ecs" {
     cidr_blocks      = ["0.0.0.0/0"]
   }
 
+     ingress {
+     security_groups = [aws_security_group.bitcoin.id]
+     from_port = 2049
+     to_port = 2049 
+     protocol = "tcp"
+   }  
+
+        egress {
+     security_groups = [aws_security_group.bitcoin.id]
+     from_port = 2049
+     to_port = 2049 
+     protocol = "tcp"
+   }  
+
+
   
   egress {
     from_port        = 0
@@ -41,11 +56,11 @@ resource "aws_security_group" "sgs_id_ecs" {
   }
 
   tags = {
-    Name = "ecs_sg"
+    Name = "ecs"
   }
 }
 
-resource "aws_security_group" "ecs_host_sg" {
+/* resource "aws_security_group" "ecs_host_sg" {
 	    vpc_id      = var.vpc_id
 	
 	    ingress {
@@ -68,4 +83,4 @@ resource "aws_security_group" "ecs_host_sg" {
 	        protocol        = "tcp"
 	        cidr_blocks     = ["0.0.0.0/0"]
 	    }
-}
+} */
