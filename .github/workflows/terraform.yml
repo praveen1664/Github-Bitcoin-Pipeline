@@ -8,9 +8,7 @@ on:
   pull_request:
   discussion_comment:
  
-    
-
-
+ 
 permissions:
   contents: read
 
@@ -56,11 +54,11 @@ jobs:
     # Generates an execution plan for Terraform
     # - name: Terraform Plan
     #   run: terraform -chdir='environment/demo' plan -input=false
-    - name: Terraform Init
+    - name: Terraform Init ECR
       run: terraform -chdir='modules/ecr' init 
       
 
-    - name: Terraform ECR Creation
+    - name: Terraform Create ECR 
       if: github.event_name == 'push'
       run: terraform -chdir='modules/ecr' apply -auto-approve -input=false
 
@@ -79,5 +77,5 @@ jobs:
       
     - name: Terraform Init For Main Module
       run: terraform -chdir='environment/demo' init   
-    - name: Terraform Apply for VPC, SUBnets, Nat gateways, ECS, EFS
+    - name: Terraform Create the whole Infra e.g. VPC, SUBnets, Nat gateways, ECS, EFS
       run: terraform -chdir='environment/demo' apply -auto-approve -input=false       

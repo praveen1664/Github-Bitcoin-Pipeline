@@ -41,10 +41,10 @@ jobs:
       run: terraform -chdir='environment/demo' init 
     - name: Terraform Format
       run: terraform fmt -check
-    - name: Terraform Destroy
+    - name: Terraform Destroy The whole Environment
       run: terraform -chdir='environment/demo' destroy -auto-approve -input=false
     - name: Terraform Init
       run: terraform -chdir='modules/ecr' init 
-    - name: Terraform Destroy
+    - name: Terraform Destroy The ECR
       run: terraform -chdir='modules/ecr' destroy -auto-approve -input=false
 
