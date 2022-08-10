@@ -43,7 +43,7 @@ jobs:
         aws-region: ${{ secrets.AWS_REGION }}
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        repo_url: ${{secrets.REPO_URL}}
+        # repo_url: ${{secrets.REPO_URL}}
     
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
 
