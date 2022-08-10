@@ -1,8 +1,8 @@
 Github Actions Integration with terraform to create VPC,SG, ECR , ECS, EFS & mounting of EFS
 ==================================================================================================
 # What it contains
-1. ### This is a complete CI-CD pipeline through Github actions which follow the below routein:
-As soon as there is a checkin in main branch a github workflow tearrform_plan_apply will automatically trigger to create the below:
+1. ### This is a complete CI-CD pipeline through Github workflow actions present in .github folder along with Terraform code present in modules folder & environment/demo folder  which follow the below routein:
+As soon as there is a checkin in main branch a github workflow will trigger the terrform scripts with workflow name tearrform_plan_apply which will create the followings on broader level with terraform:
 
     A. VPC
     B. CIDR
@@ -35,9 +35,9 @@ A Valid AWS account with programatic access enabled with access_key & secret_key
 
 What You need to do to test this code?
 ======================================
-### (A) test it in Same repo & my account.
+### (A) Test it in Same repo, same github account my aws account in same structure the please contact me.
 ----------------------------------------
-1. Clone this repo & do some dummy checkin say add some comment in READMDEmd.
+1. Clone/checkout this repo & do some dummy checkin say add some comment in READMDEmd.
 2. Make some meaningful comments & do a push.
 3. The Github action "Terraform_Plan_Apply" will trigger automatically.
 4. You can Watch it to be completed in repo,Actions,Terraform_Plan_Apply workflow
@@ -48,13 +48,20 @@ What You need to do to test this code?
 ----------------------------------------------
 ### (B) Test this from command line on your system
 ------------------------------
-1. Take a system which have terraform installed.
+1. Take a system which have terraform & docker installed installed.
 2. Install aws-cli
 3. do aws configure from cli.
 4. Clone my repository.
 5. In providers section uncomment the profile block & region
 6. Also remove my remote backend
-7. Goto , environment\demo folder & run following commands
+7. First go to modules/ecr folder & run following. It will create the ECR repo
+           ``
+               a) terraform init
+               b) terraform plan
+               c) terraform apply
+            ``
+8. Now come back to root folder & do a docker build with docker file. Push the Images to you ECR build earlier after setting up your aws profile.
+9. Goto , environment\demo folder & run following commands
   ``sh 
    a) terraform init
    b) terraform plan
@@ -64,7 +71,7 @@ What You need to do to test this code?
 
    d) terraform destroy
 -------------------------------------------------------
-### (C) Want to test it with your github account then
+### (C) Want to test it with your github account in your aws  then use the followings
 ---------------------------------------------------
 1. Clone this repo from main branch
 2. Remove my backend from providers section.
