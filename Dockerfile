@@ -49,7 +49,9 @@ RUN apt update \
     && apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && ln -sv /opt/bitcoin/bin/* /usr/local/bin
 
-COPY ./btc_oneshot ./docker-entrypoint.sh /usr/local/bin/
+COPY ./btc_oneshot  /usr/local/bin/
 COPY ./btc_init /usr/local/bin/
+COPY ./docker-entrypoint.sh /usr/local/bin/
+ENV PATH="/usr/local/bin/docker-entrypoint.sh:${PATH}" 
 
 CMD ["btc_oneshot"]
