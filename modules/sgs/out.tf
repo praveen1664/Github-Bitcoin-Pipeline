@@ -6,6 +6,7 @@ output "sgsid_ecs" {
   value = aws_security_group.ecs.id
 }
 
-output "sgsid_ecs_host" {
-  value = aws_security_group.ecs_host_sg.id
+output "efs" {
+  value = aws_security_group.efs.id
 }
+

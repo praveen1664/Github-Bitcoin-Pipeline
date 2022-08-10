@@ -5,7 +5,7 @@ module "vpc" {
   public_subnet_cidr_blocks = var.public_subnet_cidr_blocks
   private_subnet_cidr_blocks = var.private_subnet_cidr_blocks
   vpc_cidr_block = var.vpc_cidr_block
-  sgsid_ecs_host =  "${module.sgs.sgsid_ecs_host}"
+  efs =  "${module.sgs.efs}"
 }
 
 # Module to Create Required Security Groups

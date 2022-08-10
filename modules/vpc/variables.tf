@@ -22,7 +22,7 @@ variable "private_subnet_cidr_blocks" {
   description = "list of cidr blocks to create public subnet with"
 }
 
-variable "sgsid_ecs_host" {
+variable "efs" {
   type = string
 }
 

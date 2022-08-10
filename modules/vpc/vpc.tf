@@ -128,6 +128,7 @@ resource "time_sleep" "wait_200_seconds" {
   depends_on = [null_resource.previous, aws_efs_file_system.bitcoin]
 
   create_duration = "180s"
+  time_sleep="180s"
 }
 
 # This resource will create (at least) 30 seconds after null_resource.previous
@@ -140,6 +141,7 @@ resource "aws_efs_mount_target" "mount" {
   file_system_id = aws_efs_file_system.bitcoin.id
   count = length(var.public_subnet_cidr_blocks)
   subnet_id      = aws_subnet.public[count.index].id
+  security_groups = [var.efs]
   /* tags = {
     Name = "ECS-EFS-MNT"
   } */
