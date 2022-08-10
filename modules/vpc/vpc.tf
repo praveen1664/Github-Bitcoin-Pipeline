@@ -113,10 +113,10 @@ resource "aws_route_table_association" "private_crt_public_subnet" {
 resource "aws_security_group" "bitcoin" {
    name = "efs-sg"
    description= "Allos inbound efs traffic from ec2"
-   /* vpc_id = aws_vpc.vpc.id */
+   vpc_id = aws_vpc.vpc-network.id
 
    ingress {
-     security_groups = [aws_security_group.ec2.id]
+     security_groups = [var.sgs_id_ecs.id]
      from_port = 2049
      to_port = 2049 
      protocol = "tcp"
