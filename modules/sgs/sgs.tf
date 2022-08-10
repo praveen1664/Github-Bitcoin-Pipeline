@@ -17,7 +17,7 @@ resource "aws_security_group" "alb_sgs" {
   }
 }
 
-resource "aws_security_group" "ecs" {
+resource "aws_security_group" "sgs_id_ecs" {
   name        = "ecs-container"
   description = "Allow http inbound traffic"
   vpc_id      = var.vpc_id
@@ -31,6 +31,7 @@ resource "aws_security_group" "ecs" {
     cidr_blocks      = ["0.0.0.0/0"]
   }
 
+  
   egress {
     from_port        = 0
     to_port          = 0

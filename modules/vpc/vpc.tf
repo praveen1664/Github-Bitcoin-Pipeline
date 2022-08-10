@@ -116,7 +116,7 @@ resource "aws_security_group" "bitcoin" {
    vpc_id = aws_vpc.vpc-network.id
 
    ingress {
-     security_groups = [var.sgs_id_ecs.id]
+     security_groups = [aws_security_group.sgs_id_ecs.id]
      from_port = 2049
      to_port = 2049 
      protocol = "tcp"
