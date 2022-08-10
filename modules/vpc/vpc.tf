@@ -127,7 +127,7 @@ resource "null_resource" "previous" {
 resource "time_sleep" "wait_200_seconds" {
   depends_on = [null_resource.previous, aws_efs_file_system.bitcoin]
 
-  create_duration = "200s"
+  create_duration = "300s"
   
 }
 
