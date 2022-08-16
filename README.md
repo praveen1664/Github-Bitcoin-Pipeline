@@ -22,6 +22,9 @@ As soon as there is a checkin in main branch a github workflow will trigger the 
 ##### It contain 2 Github Actions Work Flow as part of CI CD
    ###### 1. "Terraform_Plan_Apply"
    ###### 2. Terraform destroy
+   
+   No of tests:
+   1. Tested once
 
 ##### 1. Workflow "Terraform_Plan_Apply" will triggred automatically with a push in main branch with Github Actions to:
 
