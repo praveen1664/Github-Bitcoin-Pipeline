@@ -25,6 +25,7 @@ As soon as there is a checkin in main branch a github workflow will trigger the 
    
    No of tests:
    1. Tested once
+   2.Twice tested
 
 ##### 1. Workflow "Terraform_Plan_Apply" will triggred automatically with a push in main branch with Github Actions to:
 
