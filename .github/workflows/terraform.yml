@@ -78,4 +78,9 @@ jobs:
     - name: Terraform Init For Main Module
       run: terraform -chdir='environment/demo' init   
     - name: Terraform Create the whole Infra e.g. VPC, SUBnets, Nat gateways, ECS, EFS
-      run: terraform -chdir='environment/demo' apply -auto-approve -input=false       
+      run: terraform -chdir='environment/demo' apply -auto-approve -input=false   
+
+    #Introduce the wait time for graceful start
+    - name: Graceful starting the Bitcoin Core in container
+      run: sleep 150s
+      shell: bash    
