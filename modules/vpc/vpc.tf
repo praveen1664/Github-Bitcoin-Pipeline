@@ -7,10 +7,6 @@ resource "aws_eip" "nat" {
 
 
 
-#data "aws_subnet" "public_subnets" {
-#  count = "${length(data.aws_availability_zones.available.names)}"
-#}
-
 resource "aws_vpc" "vpc-network" {
    cidr_block = var.vpc_cidr_block
    enable_dns_hostnames = true
