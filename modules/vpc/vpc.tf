@@ -142,6 +142,7 @@ resource "aws_efs_mount_target" "mount" {
   count = length(var.public_subnet_cidr_blocks)
   subnet_id      = aws_subnet.public[count.index].id
   security_groups = [var.efs]
+  depends_on = [null_resource.next, time_sleep.wait_200_seconds, null_resource.previous, aws_efs_file_system.bitcoin]
   /* tags = {
     Name = "ECS-EFS-MNT"
   } */
