@@ -1,9 +1,9 @@
 ## Create EIP to attach to NAT Gateway ##
-
+/* 
 resource "aws_eip" "nat" {
   count = "2"
  # vpc      = true
-}
+} */
 
 
 
@@ -15,14 +15,14 @@ resource "aws_vpc" "vpc-network" {
   }
 }
 
-resource "aws_internet_gateway" "igw" {
+/* resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.vpc-network.id
   tags = {
     Name = "${var.env}-igw"
   }
-}
+} */
 
-  resource "aws_nat_gateway" "nat" {
+  /* resource "aws_nat_gateway" "nat" {
   count     = length(var.public_subnet_cidr_blocks)
   subnet_id  = aws_subnet.public[count.index].id
   allocation_id = "${aws_eip.nat.*.id[count.index]}"
@@ -33,7 +33,7 @@ resource "aws_internet_gateway" "igw" {
   # To ensure proper ordering, it is recommended to add an explicit dependency
   # on the Internet Gateway for the VPC.
   depends_on = [aws_internet_gateway.igw]
-}
+} */
 
 resource "aws_subnet" "public" {
   count                   = length(var.public_subnet_cidr_blocks)
@@ -71,7 +71,7 @@ resource "aws_route_table" "public_custom_route_table" {
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.igw.id
+    /* gateway_id = aws_internet_gateway.igw.id */
   }
 
   tags = {
@@ -85,7 +85,7 @@ resource "aws_route_table" "private_custom_route_table" {
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_nat_gateway.nat[count.index].id
+    /* gateway_id = aws_nat_gateway.nat[count.index].id */
   }
 
   tags = {
