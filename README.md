@@ -18,9 +18,7 @@ test5
     K. Mouting Point of EFS to data
     L. Necessary Policies.
     M. Policies to assume role.
-    N.
-    
-    1
+    N
 
 2. ### How it could be run?
 ##### It contain 2 Github Actions Work Flow as part of CI CD
